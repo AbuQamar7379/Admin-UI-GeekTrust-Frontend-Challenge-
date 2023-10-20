@@ -1,0 +1,53 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table thead th {
+    text-align: start;
+    padding: 20px;
+}
+
+.table thead tr {
+    background-color: antiquewhite;
+    border-bottom: 1px solid black;
+}
+
+.table tbody tr td {
+    text-align: start;
+    padding: 20px;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid grey;
+}
+
+input[type="text"],
+input[type="email"] {
+    border: none;
+}
+
+input[type="text"]:disabled,
+input[type="email"]:disabled {
+    background-color: inherit;
+    color: black;
+}
+
+table tbody tr input[type="text"]:enabled,
+input[type="email"]:enabled {
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.checked-row {
+    background-color: rgb(211, 211, 211);
+}
+
+.unchecked-row {
+    background-color: white;
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
