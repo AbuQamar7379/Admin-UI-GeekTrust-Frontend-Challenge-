@@ -1,11 +1,15 @@
-import { Box, Stack, Pagination } from "@mui/material";
+import { Box, Stack, Pagination, useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 const Pagination_ = ({ usersPerPage, totalUsers, paginate, currentPage }) => {
-  const totalPage = Math.ceil(totalUsers / usersPerPage);
+  let totalPage = Math.ceil(totalUsers / usersPerPage);
 
   const handleChangePage = (event, value) => {
     paginate(value);
   };
+
+  let theme = useTheme();
+  let isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <Box
@@ -14,7 +18,7 @@ const Pagination_ = ({ usersPerPage, totalUsers, paginate, currentPage }) => {
       alignItems="center"
       margin="20px 0 50px 0"
     >
-      <Stack spacing={2}>
+      <Stack>
         <Pagination
           count={totalPage}
           page={currentPage}
@@ -22,7 +26,7 @@ const Pagination_ = ({ usersPerPage, totalUsers, paginate, currentPage }) => {
           color="primary"
           showFirstButton
           showLastButton
-          size="large"
+          size={isSmallScreen ? "medium" : "large"}
         />
       </Stack>
     </Box>

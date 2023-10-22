@@ -15,13 +15,14 @@ const Dashboard = () => {
   let [loading, setLoading] = useState(true);
   let [searchList, setSearchList] = useState([]);
   let [searchVal, setSearchVal] = useState("");
+  let [isCheckboxClicked, setIsCheckboxClicked] = useState(false);
   let [currentPage, setCurrentPage] = useState(1);
   let [checkedUsers, setCheckedUsers] = useState([]);
   let [totalUsers, setTotalUsers] = useState(0);
   let usersPerPage = 10;
 
   
-  // Fetch User List
+  /******** Fetch User List ********/
   const fetchUsers = () => {
     setTimeout(async () => {
       try {
@@ -42,17 +43,17 @@ const Dashboard = () => {
   // Use Effect (Mount Phase)
   useEffect(() => {
     fetchUsers();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  
+
   //useEffect (mount + update phase) to set the initial totalUsers value when the user data is loaded
   useEffect(() => {
     setTotalUsers(userList.length);
   }, [userList]);
 
-  
-  // Handle Search User
+
+  /******** Handle Search User ********/
   const handleSearchUser = (e) => {
     let search = e.toLowerCase();
     if (searchVal.length > 0) {
@@ -68,8 +69,8 @@ const Dashboard = () => {
     }
   };
 
-  
-  // Handle Delete User
+
+  /******** Handle Delete User ********/
   const handleDeleteUser = (userIds) => {
     const filteredUserList = userList.filter(
       (user) => !userIds.includes(user.id)
@@ -82,9 +83,15 @@ const Dashboard = () => {
     });
   };
 
-  
-  // Handle Delete Selected Users
+
+  /******** Handle Delete Selected Users ********/
   const handleDeleteSelectedUsers = () => {
+    if (checkedUsers.length === 0) {
+      return enqueueSnackbar("No user selected, Please select user first!", {
+        variant: "warning",
+        autoHideDuration: 1500,
+      });
+    }
     const usersToDelete = userList.filter((user) =>
       checkedUsers.includes(user.id)
     );
@@ -93,10 +100,12 @@ const Dashboard = () => {
     handleDeleteUser(userIdsToDelete);
     // Clear the selection
     setCheckedUsers([]);
+    // unChecked header checkbox
+    setIsCheckboxClicked(false)
   };
 
-  
-  // Handle User Update
+
+  /******** Handle User Update ********/
   const handleInputChange = (event, index, field) => {
     const updatedUserList = [...userList];
     updatedUserList[index] = {
@@ -108,13 +117,13 @@ const Dashboard = () => {
   };
 
 
-  // Paginate
+  /********  Paginate ********/
   const paginate = (pageNum) => {
     setCurrentPage(pageNum);
   };
 
 
-  // get current page Users (users calculation)
+  /******** get current page Users (users calculation) ********/
   let indexOfLastUser = currentPage * usersPerPage;
   let indexOfFirstUser = indexOfLastUser - usersPerPage;
   let currentUsers =
@@ -122,8 +131,9 @@ const Dashboard = () => {
       ? userList.slice(indexOfFirstUser, indexOfLastUser)
       : searchList.slice(indexOfFirstUser, indexOfLastUser);
 
+
   return (
-    <>
+    <div className="dashboard-container">
       <h1 className="heading">Admin UI</h1>
       <div className="search">
         <SearchUser
@@ -132,7 +142,7 @@ const Dashboard = () => {
           search={handleSearchUser}
         />
       </div>
-      <div style={{ border: "1px solid black" }}>
+      <div style={{ border: "1px solid black", width: "90vw" }}>
         {loading ? (
           <Box
             display="flex"
@@ -149,6 +159,8 @@ const Dashboard = () => {
             deleteUser={handleDeleteUser}
             updateUser={handleInputChange}
             setCheckedUsers={setCheckedUsers}
+            isCheckboxClick={isCheckboxClicked}
+            setIsCheckboxClick={setIsCheckboxClicked}
           />
         )}
       </div>
@@ -163,7 +175,7 @@ const Dashboard = () => {
           currentPage={currentPage}
         />
       </div>
-    </>
+    </div>
   );
 };
 

@@ -14,7 +14,12 @@ const SearchUser = ({ value, changeValue, search }) => {
           </InputAdornment>
         ),
       }}
-      style={{ minWidth: 400 }}
+      sx={{
+        minWidth: {
+          xs: 300,
+          sm: 400,
+        },
+      }}
       value={value}
       onChange={(e) => {
         changeValue(e.target.value);

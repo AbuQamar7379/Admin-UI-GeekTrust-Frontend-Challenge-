@@ -1,53 +1,49 @@
-.table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.table thead th {
-    text-align: start;
-    padding: 20px;
-}
-
-.table thead tr {
-    background-color: antiquewhite;
-    border-bottom: 1px solid black;
-}
-
-.table tbody tr td {
-    text-align: start;
-    padding: 20px;
-}
-
-.table tbody tr {
-    border-bottom: 1px solid grey;
-}
-
 input[type="text"],
 input[type="email"] {
-    border: none;
+  border: none;
 }
 
 input[type="text"]:disabled,
 input[type="email"]:disabled {
-    background-color: inherit;
-    color: black;
+  background-color: inherit;
+  color: black;
 }
 
 table tbody tr input[type="text"]:enabled,
 input[type="email"]:enabled {
-    border: 1px solid grey;
-    border-radius: 5px;
-    padding: 10px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 10px 0px 10px 3px;
 }
 
 .checked-row {
-    background-color: rgb(211, 211, 211);
+  background-color: rgb(211, 211, 211);
 }
 
 .unchecked-row {
-    background-color: white;
+  background-color: white;
 }
 
-tbody tr:last-child {
-    border-bottom: none;
+.tableHeader {
+  background-color: antiquewhite;
+}
+
+.tableHeader th {
+  font-size: 1rem;
+  font-weight: 700;
+  border-bottom: 1px solid black;
+  background-color: antiquewhite;
+}
+
+h1 {
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  tbody tr td {
+    padding: 0 10px 0 10px !important;
+  }
+  h1 {
+    font-size: 1.5rem;
+  }
 }
